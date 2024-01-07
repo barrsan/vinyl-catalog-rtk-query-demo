@@ -1,0 +1,1 @@
+export { VinylTabs } from './VinylTabs';
