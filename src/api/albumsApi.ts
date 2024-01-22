@@ -49,4 +49,4 @@ export const albumsApi = createApi({
   }),
 });
 
-export const { useFetchAlbumsQuery, useLazyFetchAlbumsQuery } = albumsApi;
+export const { useFetchAlbumsQuery } = albumsApi;

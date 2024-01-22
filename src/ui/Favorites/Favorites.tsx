@@ -1,7 +1,4 @@
-import {
-  useFetchFavoriteAlbumsQuery,
-  useLazyFetchFavoriteAlbumsQuery,
-} from '@/api/favoriteAlbumsApi';
+import { useFetchFavoriteAlbumsQuery } from '@/api/favoriteAlbumsApi';
 import { IoIosWarning, IoMdHeartEmpty } from 'react-icons/io';
 
 import { FluidContainer } from '@/ui/FluidContainer';
@@ -10,11 +7,15 @@ import { StatusMessage } from '@/ui/StatusMessage';
 import { VinylList } from '@/ui/VinylList';
 
 export function Favorites() {
-  const { data, isLoading, isError } = useFetchFavoriteAlbumsQuery();
-  const [fetchFavoriteAlbums] = useLazyFetchFavoriteAlbumsQuery();
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: refetchFavoriteAlbums,
+  } = useFetchFavoriteAlbumsQuery();
 
   const handleTryAgainButtonClick = () => {
-    fetchFavoriteAlbums();
+    refetchFavoriteAlbums();
   };
 
   if (isLoading) {

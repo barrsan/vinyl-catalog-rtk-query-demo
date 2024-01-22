@@ -1,4 +1,3 @@
-import { useFetchFavoriteAlbumsQuery } from '@/api/favoriteAlbumsApi';
 import { useAppSelector } from '@/store';
 import { Tab, Tabs } from '@nextui-org/react';
 
@@ -10,7 +9,6 @@ import { VinylTabContent } from './VinylTabContent';
 
 export function VinylTabs() {
   const { searchString } = useAppSelector((state) => state.albumSearch);
-  useFetchFavoriteAlbumsQuery();
 
   return (
     <Tabs aria-label="Vinyls" size="md">

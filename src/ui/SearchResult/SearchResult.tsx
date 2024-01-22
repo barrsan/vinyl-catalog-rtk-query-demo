@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useFetchAlbumsQuery, useLazyFetchAlbumsQuery } from '@/api/albumsApi';
+import { useFetchAlbumsQuery } from '@/api/albumsApi';
 import { setPage, useAppDispatch, useAppSelector } from '@/store';
 import clsx from 'clsx';
 import { IoIosWarning, IoMdSearch } from 'react-icons/io';
@@ -18,11 +18,16 @@ export function SearchResult() {
     (state) => state.albumSearch,
   );
 
-  const { data, isFetching, isLoading, isError } = useFetchAlbumsQuery({
+  const {
+    data,
+    isFetching,
+    isLoading,
+    isError,
+    refetch: refetchAlbums,
+  } = useFetchAlbumsQuery({
     page,
     q: searchString,
   });
-  const [fetchAlbums] = useLazyFetchAlbumsQuery();
 
   const isEnd = page >= maxPage;
   const isEmpty = !data?.results.length;
@@ -36,7 +41,7 @@ export function SearchResult() {
   };
 
   const handleTryAgainButtonClick = () => {
-    fetchAlbums({ page, q: searchString });
+    refetchAlbums();
   };
 
   if ((isFetching && page === 1) || isLoading) {

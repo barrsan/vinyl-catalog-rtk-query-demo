@@ -35,7 +35,6 @@ export const favoriteAlbumsApi = createApi({
 
 export const {
   useFetchFavoriteAlbumsQuery,
-  useLazyFetchFavoriteAlbumsQuery,
   useAddFavoriteAlbumMutation,
   useRemoveFavoriteAlbumMutation,
 } = favoriteAlbumsApi;
