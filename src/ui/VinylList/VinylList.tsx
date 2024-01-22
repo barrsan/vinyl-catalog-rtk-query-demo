@@ -17,7 +17,7 @@ export function VinylList({ items = [] }: Props) {
         <VinylListItem
           key={item.id}
           id={item.id}
-          cover={item.cover_image}
+          cover={item.coverImage}
           title={item.title}
           isFavorite={!!favoriteAlbumIds[item.id]}
         />

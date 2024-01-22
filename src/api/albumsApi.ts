@@ -2,9 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { BASE_API_URL_DISCOGS } from '@/constants';
 
-import { Album, DiscogsApiResponse } from '@/types';
+import { Album, DiscogsApiAlbum, DiscogsApiResponse } from '@/types';
 
-type SearchResponse = DiscogsApiResponse<Album[]>;
+type Response = DiscogsApiResponse<DiscogsApiAlbum[]>;
+
+type ProcessedResponse = DiscogsApiResponse<Album[]>;
 
 export const albumsApi = createApi({
   reducerPath: 'albumsApi',
@@ -12,7 +14,7 @@ export const albumsApi = createApi({
     baseUrl: BASE_API_URL_DISCOGS,
   }),
   endpoints: (build) => ({
-    fetchAlbums: build.query<SearchResponse, { q: string; page: number }>({
+    fetchAlbums: build.query<ProcessedResponse, { q: string; page: number }>({
       query: ({ q, page }) => ({
         url: 'database/search',
         params: {
@@ -22,6 +24,19 @@ export const albumsApi = createApi({
           page,
         },
       }),
+      transformResponse: (response: Response) => {
+        const processedResponse = {
+          ...response,
+          results: response.results.map((album) => ({
+            id: album.id,
+            title: album.title,
+            coverImage: album.cover_image,
+          })),
+        };
+
+        return processedResponse;
+      },
+
       serializeQueryArgs({ queryArgs }) {
         const { q } = queryArgs;
         return { q };

@@ -8,13 +8,18 @@ type Pagination = {
     next: string;
   };
 };
+
 export type DiscogsApiResponse<T extends unknown[]> = {
   results: T;
   pagination: Pagination;
 };
 
-export type Album = {
+export type DiscogsApiAlbum = {
   id: number;
   title: string;
   cover_image: string;
+};
+
+export type Album = Omit<DiscogsApiAlbum, 'cover_image'> & {
+  coverImage: string;
 };

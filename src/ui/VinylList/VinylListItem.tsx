@@ -24,7 +24,7 @@ function VinylListItem({ id, title, cover, isFavorite }: Props) {
       addFavoriteAlbum({
         id,
         title,
-        cover_image: cover,
+        coverImage: cover,
       });
     }
   };
